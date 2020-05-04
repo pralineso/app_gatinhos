@@ -1,5 +1,7 @@
 import streamlit as st
 import requests as rq
+import seaborn as sns
+import matplotlib.pyplot as plt
 import json as js
 import pandas as pd
 from pandas.io.json import json_normalize
@@ -12,6 +14,10 @@ def main():
     response = rq.get('https://api.thecatapi.com/v1/breeds')
 
     response.headers['x-api-key'] = 'a4824c2c-86fb-4ec8-8627-b5779c3bc0be'
+
+    
+
+  
 
     #names = response_api["name"][2]
     #names
@@ -36,33 +42,55 @@ def main():
 
     st.subheader('Agora vamos responder algumas questões interessates sobre alguns atributos dos gatinhos')
 
-    st.markdown('**Quantidade de raças "raras" (rare)**')
+    st.markdown('**Quantidade de raças "raras" (rare): **')
+   # st.table(df[df['rare']=='1'].count())
 
-    st.markdown('**Média da idade das raças ()**')
+    st.write('**Faixa média da vida util das raças que mais se repete (life_span): **', df['life_span'].mode().loc[0])
 
     st.markdown('**% de raças que classificadas como "perna curta" (short_legs)**')
+    #st.markdown(df['short_legs'].mean()/df['short_legs'].count())
 
     st.markdown('**Quais são as raças consideradas mais amigaveis com crianças (child_friendly)**')
+    #st.markdown(df['name']df['child_friendly']=='1')
 
     st.markdown('**Quais são as raças consideradas mais adaptáveis (adaptability)**')
+    #st.markdown(list(df['adaptability']=='5'))
 
     st.markdown('**Gráfico com a relação da origen (paises) das raças de gatinhos com a quantidade**')
 
+    #st.write(sns.countplot(x = 'origin', data = df))
+
     st.subheader('Ficou curios@? Veja a carinha dos bixanos ...')
 
-    pics = {
-    "Cat": "https://cdn.pixabay.com/photo/2016/09/24/22/20/cat-1692702_960_720.jpg",
-    "Puppy": "https://cdn.pixabay.com/photo/2019/03/15/19/19/puppy-4057786_960_720.jpg",
-    "Sci-fi city": "https://storage.needpix.com/rsynced_images/science-fiction-2971848_1280.jpg"
-    }
-    pic = st.selectbox("Picture choices", list(pics.keys()), 0)
-    st.image(pics[pic], use_column_width=True, caption=pics[pic])
+   # st.table(df[['id','name']])
 
-    st.markdown('**Nome:**')
-    st.markdown('**Origem:**')
-    st.markdown('**Código do país:**')
-    st.markdown('**Temperamento:**')
-    st.markdown('**Descrição:**')
+    #id_list = map(df[['id','name']])
+   # print(id_list)
+    #st.markdown(id_list)
+   # https://api.thecatapi.com/v1/images/search?breed_id=id_list[0]'
+    list_select = list(df['name'])
+    #lit_name.append(df['name'])
+    pic_name = st.selectbox("Selecione a raça do gato:", list_select, 0)
+
+    #pega o id da raça selecionada
+    id_breed = df['id'][df['name'] == pic_name]
+    #origem =  df['origin'][df['name'] == pic_name]
+    #temperamento = df['temperament'][df['name'] == pic_name]
+    #descricao = df['description'][df['name'] == pic_name]
+
+    #Configurações para puxar a url da imagem da raça selecionada
+    payload = {'breed_id': id_breed}   
+    response_img = rq.get('https://api.thecatapi.com/v1/images/search', params=payload)
+    response_img.headers['x-api-key'] = 'a4824c2c-86fb-4ec8-8627-b5779c3bc0be'
+    jimg = js.loads(response_img.text)
+    image_url = jimg[0]["url"]
+
+    #Exibindo a imagem e as demais informações
+    st.image(image_url, use_column_width=True, caption=('Fonte: ' + image_url))
+    st.write('**Name:** ', pic_name)
+    st.write('**Origin:** ', df['origin'][df['name'] == pic_name].iloc[0]  )
+    st.write('**Temperament:** ',  df['temperament'][df['name'] == pic_name].iloc[0])
+    st.write('**Description:** ', df['description'][df['name'] == pic_name].iloc[0]) 
     
     
 
