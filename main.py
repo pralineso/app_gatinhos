@@ -34,7 +34,7 @@ def main():
     st.markdown('**Descrevendo os dados do Dataframe**')
     st.dataframe(df.describe())
 
-    st.markdown('**Agora vamos responder algumas questões interessates sobre alguns atributos dos gatinhos**')
+    st.subheader('Agora vamos responder algumas questões interessates sobre alguns atributos dos gatinhos')
 
     st.markdown('**Quantidade de raças "raras" (rare)**')
 
@@ -44,9 +44,27 @@ def main():
 
     st.markdown('**Quais são as raças consideradas mais amigaveis com crianças (child_friendly)**')
 
-    st.markdown('**Quais são as raças consideradas mais adaptáveis (adaptabiluty)**')
+    st.markdown('**Quais são as raças consideradas mais adaptáveis (adaptability)**')
 
     st.markdown('**Gráfico com a relação da origen (paises) das raças de gatinhos com a quantidade**')
+
+    st.subheader('Ficou curios@? Veja a carinha dos bixanos ...')
+
+    pics = {
+    "Cat": "https://cdn.pixabay.com/photo/2016/09/24/22/20/cat-1692702_960_720.jpg",
+    "Puppy": "https://cdn.pixabay.com/photo/2019/03/15/19/19/puppy-4057786_960_720.jpg",
+    "Sci-fi city": "https://storage.needpix.com/rsynced_images/science-fiction-2971848_1280.jpg"
+    }
+    pic = st.selectbox("Picture choices", list(pics.keys()), 0)
+    st.image(pics[pic], use_column_width=True, caption=pics[pic])
+
+    st.markdown('**Nome:**')
+    st.markdown('**Origem:**')
+    st.markdown('**Código do país:**')
+    st.markdown('**Temperamento:**')
+    st.markdown('**Descrição:**')
+    
+    
 
 
 if __name__ == '__main__':
