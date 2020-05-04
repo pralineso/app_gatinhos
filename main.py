@@ -34,6 +34,19 @@ def main():
     st.markdown('**Descrevendo os dados do Dataframe**')
     st.dataframe(df.describe())
 
+    st.markdown('**Agora vamos responder algumas questões interessates sobre alguns atributos dos gatinhos**')
+
+    st.markdown('**Quantidade de raças "raras" (rare)**')
+
+    st.markdown('**Média da idade das raças ()**')
+
+    st.markdown('**% de raças que classificadas como "perna curta" (short_legs)**')
+
+    st.markdown('**Quais são as raças consideradas mais amigaveis com crianças (child_friendly)**')
+
+    st.markdown('**Quais são as raças consideradas mais adaptáveis (adaptabiluty)**')
+
+    st.markdown('**Gráfico com a relação da origen (paises) das raças de gatinhos com a quantidade**')
 
 
 if __name__ == '__main__':
