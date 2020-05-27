@@ -20,5 +20,3 @@ Essa aplicação utiliza a [TheCatApi](http://thecatapi.com/ "TheCatApi") como f
 
 
 ------------
-
-[![imagem](imagem "imagem")](https://drive.google.com/file/d/1mf_zD1g4qFav2N76zHyI_G1eq57zlU9h/view?usp=sharing "imagem")
